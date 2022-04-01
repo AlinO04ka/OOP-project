@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище HotelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comforts">
+          <Key>
+            <PropertyRef Name="Comfort" />
+          </Key>
+          <Property Name="Comfort" Type="nvarchar" MaxLength="36" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dates">
+          <Key>
+            <PropertyRef Name="ID_Date" />
+          </Key>
+          <Property Name="ID_Date" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Number" Type="int" />
+          <Property Name="ID_Profile" Type="int" />
+          <Property Name="dateFrom" Type="date" Nullable="false" />
+          <Property Name="dateTo" Type="date" Nullable="false" />
+          <Property Name="order_state" Type="nvarchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="ID_Profile" />
+          </Key>
+          <Property Name="ID_Profile" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Numbers">
+          <Key>
+            <PropertyRef Name="ID_Number" />
+          </Key>
+          <Property Name="ID_Number" Type="int" Nullable="false" />
+          <Property Name="place_type" Type="nvarchar" MaxLength="36" />
+          <Property Name="comfort_type" Type="nvarchar" MaxLength="36" />
+          <Property Name="isFree" Type="int" />
+          <Property Name="imageNumber" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Placing">
+          <Key>
+            <PropertyRef Name="Place" />
+          </Key>
+          <Property Name="Place" Type="nvarchar" MaxLength="36" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ID_Profile" />
+          </Key>
+          <Property Name="ID_Profile" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="middle_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="imageData" Type="varbinary(max)" />
+          <Property Name="sexxx" Type="int" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="order_state" />
+          </Key>
+          <Property Name="order_state" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Dates__ID_Number__38996AB5">
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dates" Type="Self.Dates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Numbers">
+              <PropertyRef Name="ID_Number" />
+            </Principal>
+            <Dependent Role="Dates">
+              <PropertyRef Name="ID_Number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dates__ID_Profil__398D8EEE">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dates" Type="Self.Dates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID_Profile" />
+            </Principal>
+            <Dependent Role="Dates">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dates__order_sta__3A81B327">
+          <End Role="States" Type="Self.States" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dates" Type="Self.Dates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="order_state" />
+            </Principal>
+            <Dependent Role="Dates">
+              <PropertyRef Name="order_state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entry__ID_Profil__286302EC">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="Entry" Type="Self.Entry" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID_Profile" />
+            </Principal>
+            <Dependent Role="Entry">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Numbers__comfort__31EC6D26">
+          <End Role="Comforts" Type="Self.Comforts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comforts">
+              <PropertyRef Name="Comfort" />
+            </Principal>
+            <Dependent Role="Numbers">
+              <PropertyRef Name="comfort_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Numbers__place_t__30F848ED">
+          <End Role="Placing" Type="Self.Placing" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Placing">
+              <PropertyRef Name="Place" />
+            </Principal>
+            <Dependent Role="Numbers">
+              <PropertyRef Name="place_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище HotelModelContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comforts" EntityType="Self.Comforts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dates" EntityType="Self.Dates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entry" EntityType="Self.Entry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Placing" EntityType="Self.Placing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Dates__ID_Number__38996AB5" Association="Self.FK__Dates__ID_Number__38996AB5">
+            <End Role="Numbers" EntitySet="Numbers" />
+            <End Role="Dates" EntitySet="Dates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dates__ID_Profil__398D8EEE" Association="Self.FK__Dates__ID_Profil__398D8EEE">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Dates" EntitySet="Dates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dates__order_sta__3A81B327" Association="Self.FK__Dates__order_sta__3A81B327">
+            <End Role="States" EntitySet="States" />
+            <End Role="Dates" EntitySet="Dates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entry__ID_Profil__286302EC" Association="Self.FK__Entry__ID_Profil__286302EC">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="Entry" EntitySet="Entry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Numbers__comfort__31EC6D26" Association="Self.FK__Numbers__comfort__31EC6D26">
+            <End Role="Comforts" EntitySet="Comforts" />
+            <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Numbers__place_t__30F848ED" Association="Self.FK__Numbers__place_t__30F848ED">
+            <End Role="Placing" EntitySet="Placing" />
+            <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comfort">
+          <Key>
+            <PropertyRef Name="Comfort1" />
+          </Key>
+          <Property Name="Comfort1" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Numbers" Relationship="Self.FK__Numbers__comfort__31EC6D26" FromRole="Comforts" ToRole="Numbers" />
+        </EntityType>
+        <EntityType Name="Date">
+          <Key>
+            <PropertyRef Name="ID_Date" />
+          </Key>
+          <Property Name="ID_Date" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Number" Type="Int32" />
+          <Property Name="ID_Profile" Type="Int32" />
+          <Property Name="dateFrom" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateTo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="order_state" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Number" Relationship="Self.FK__Dates__ID_Number__38996AB5" FromRole="Dates" ToRole="Numbers" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK__Dates__ID_Profil__398D8EEE" FromRole="Dates" ToRole="Profile" />
+          <NavigationProperty Name="State" Relationship="Self.FK__Dates__order_sta__3A81B327" FromRole="Dates" ToRole="States" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="ID_Profile" />
+          </Key>
+          <Property Name="ID_Profile" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK__Entry__ID_Profil__286302EC" FromRole="Entry" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="Number">
+          <Key>
+            <PropertyRef Name="ID_Number" />
+          </Key>
+          <Property Name="ID_Number" Type="Int32" Nullable="false" />
+          <Property Name="place_type" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="comfort_type" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="isFree" Type="Int32" />
+          <Property Name="imageNumber" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Comfort" Relationship="Self.FK__Numbers__comfort__31EC6D26" FromRole="Numbers" ToRole="Comforts" />
+          <NavigationProperty Name="Dates" Relationship="Self.FK__Dates__ID_Number__38996AB5" FromRole="Numbers" ToRole="Dates" />
+          <NavigationProperty Name="Placing" Relationship="Self.FK__Numbers__place_t__30F848ED" FromRole="Numbers" ToRole="Placing" />
+        </EntityType>
+        <EntityType Name="Placing">
+          <Key>
+            <PropertyRef Name="Place" />
+          </Key>
+          <Property Name="Place" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Numbers" Relationship="Self.FK__Numbers__place_t__30F848ED" FromRole="Placing" ToRole="Numbers" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ID_Profile" />
+          </Key>
+          <Property Name="ID_Profile" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middle_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="sexxx" Type="Int32" />
+          <NavigationProperty Name="Dates" Relationship="Self.FK__Dates__ID_Profil__398D8EEE" FromRole="Profile" ToRole="Dates" />
+          <NavigationProperty Name="Entry" Relationship="Self.FK__Entry__ID_Profil__286302EC" FromRole="Profile" ToRole="Entry" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="order_state" />
+          </Key>
+          <Property Name="order_state" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Dates" Relationship="Self.FK__Dates__order_sta__3A81B327" FromRole="States" ToRole="Dates" />
+        </EntityType>
+        <Association Name="FK__Numbers__comfort__31EC6D26">
+          <End Role="Comforts" Type="Self.Comfort" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Numbers" Type="Self.Number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comforts">
+              <PropertyRef Name="Comfort1" />
+            </Principal>
+            <Dependent Role="Numbers">
+              <PropertyRef Name="comfort_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dates__ID_Number__38996AB5">
+          <End Role="Numbers" Type="Self.Number" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dates" Type="Self.Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Numbers">
+              <PropertyRef Name="ID_Number" />
+            </Principal>
+            <Dependent Role="Dates">
+              <PropertyRef Name="ID_Number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dates__ID_Profil__398D8EEE">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dates" Type="Self.Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID_Profile" />
+            </Principal>
+            <Dependent Role="Dates">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dates__order_sta__3A81B327">
+          <End Role="States" Type="Self.State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dates" Type="Self.Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="order_state" />
+            </Principal>
+            <Dependent Role="Dates">
+              <PropertyRef Name="order_state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entry__ID_Profil__286302EC">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="Entry" Type="Self.Entry" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ID_Profile" />
+            </Principal>
+            <Dependent Role="Entry">
+              <PropertyRef Name="ID_Profile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Numbers__place_t__30F848ED">
+          <End Role="Placing" Type="Self.Placing" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Numbers" Type="Self.Number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Placing">
+              <PropertyRef Name="Place" />
+            </Principal>
+            <Dependent Role="Numbers">
+              <PropertyRef Name="place_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Comforts" EntityType="Self.Comfort" />
+          <EntitySet Name="Dates" EntityType="Self.Date" />
+          <EntitySet Name="Entries" EntityType="Self.Entry" />
+          <EntitySet Name="Numbers" EntityType="Self.Number" />
+          <EntitySet Name="Placings" EntityType="Self.Placing" />
+          <EntitySet Name="Profiles" EntityType="Self.Profile" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <AssociationSet Name="FK__Numbers__comfort__31EC6D26" Association="Self.FK__Numbers__comfort__31EC6D26">
+            <End Role="Comforts" EntitySet="Comforts" />
+            <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dates__ID_Number__38996AB5" Association="Self.FK__Dates__ID_Number__38996AB5">
+            <End Role="Numbers" EntitySet="Numbers" />
+            <End Role="Dates" EntitySet="Dates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dates__ID_Profil__398D8EEE" Association="Self.FK__Dates__ID_Profil__398D8EEE">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="Dates" EntitySet="Dates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dates__order_sta__3A81B327" Association="Self.FK__Dates__order_sta__3A81B327">
+            <End Role="States" EntitySet="States" />
+            <End Role="Dates" EntitySet="Dates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entry__ID_Profil__286302EC" Association="Self.FK__Entry__ID_Profil__286302EC">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="Entry" EntitySet="Entries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Numbers__place_t__30F848ED" Association="Self.FK__Numbers__place_t__30F848ED">
+            <End Role="Placing" EntitySet="Placings" />
+            <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HotelModelContainer" CdmEntityContainer="HotelEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="HotelModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comforts">
+            <EntityTypeMapping TypeName="HotelModel.Comfort">
+              <MappingFragment StoreEntitySet="Comforts">
+                <ScalarProperty Name="Comfort1" ColumnName="Comfort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dates">
+            <EntityTypeMapping TypeName="HotelModel.Date">
+              <MappingFragment StoreEntitySet="Dates">
+                <ScalarProperty Name="ID_Date" ColumnName="ID_Date" />
+                <ScalarProperty Name="ID_Number" ColumnName="ID_Number" />
+                <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
+                <ScalarProperty Name="dateFrom" ColumnName="dateFrom" />
+                <ScalarProperty Name="dateTo" ColumnName="dateTo" />
+                <ScalarProperty Name="order_state" ColumnName="order_state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entries">
+            <EntityTypeMapping TypeName="HotelModel.Entry">
+              <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Numbers">
+            <EntityTypeMapping TypeName="HotelModel.Number">
+              <MappingFragment StoreEntitySet="Numbers">
+                <ScalarProperty Name="ID_Number" ColumnName="ID_Number" />
+                <ScalarProperty Name="place_type" ColumnName="place_type" />
+                <ScalarProperty Name="comfort_type" ColumnName="comfort_type" />
+                <ScalarProperty Name="isFree" ColumnName="isFree" />
+                <ScalarProperty Name="imageNumber" ColumnName="imageNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Placings">
+            <EntityTypeMapping TypeName="HotelModel.Placing">
+              <MappingFragment StoreEntitySet="Placing">
+                <ScalarProperty Name="Place" ColumnName="Place" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="HotelModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="ID_Profile" ColumnName="ID_Profile" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="imageData" ColumnName="imageData" />
+                <ScalarProperty Name="sexxx" ColumnName="sexxx" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="HotelModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="order_state" ColumnName="order_state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

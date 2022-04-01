@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Ded_Project.MapControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ded_Project"
+             mc:Ignorable="d" 
+             d:DesignHeight="630" d:DesignWidth="820">
+
+    <Grid Background="#DDF5EBEB">
+        <gmaps:GMapControl  x:Name="mapView" Height="630"></gmaps:GMapControl>
+    </Grid>
+</UserControl>

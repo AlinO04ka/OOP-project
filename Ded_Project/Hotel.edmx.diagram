@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="afb441db37e544008474e1d4e5bb5103" Name="Diagram1">
+        <EntityTypeShape EntityType="HotelModel.Admin" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.Comfort" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.Date" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.Entry" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.Number" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.Placing" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.Profile" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.State" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="HotelModel.FK__Numbers__comfort__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelModel.FK__Dates__ID_Number__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelModel.FK__Dates__ID_Profil__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelModel.FK__Dates__order_sta__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelModel.FK__Entry__ID_Profil__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelModel.FK__Numbers__place_t__30F848ED" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

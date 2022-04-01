@@ -1,0 +1,120 @@
+﻿<Window x:Class="Ded_Project.WindowAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:local="clr-namespace:Ded_Project"
+        mc:Ignorable="d"
+        Title="WindowAdmin" Height="650" Width="920" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#546747" FontFamily="Myriad Pro" FontWeight="SemiBold">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="fillColor" Storyboard.TargetProperty="Opacity" Duration="0" To=".25"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="Opacity" Duration="0" To=".55" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="fillColor2" Storyboard.TargetProperty="Opacity" Duration="0" To=".75"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="fillColor" Opacity="0" Fill="#FFBADDE9" IsHitTestVisible="False" RadiusX="1" RadiusY="1"/>
+                            <Rectangle x:Name="fillColor2" Opacity="0" Fill="#FFBADDE9" IsHitTestVisible="False" RadiusX="1" RadiusY="1"/>
+                            <ContentPresenter
+                          x:Name="contentPresenter"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          Margin="{TemplateBinding Padding}"/>
+                            <Rectangle x:Name="FocusVisualElement" Stroke="#FF6DBDD1" StrokeThickness="1" Visibility="Collapsed" RadiusX="1" RadiusY="1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="brdr" TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="630"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="820"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#334746">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,20,0">admin</TextBlock>
+                <Button x:Name="Minimize" Width="20" Height="20" Click="Minimize_Click" Cursor="Hand" BorderBrush="{x:Null}" Background="#334746" FontFamily="Myriad Pro" FontSize="35" FontWeight="SemiBold">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Height="20" Width="20"/>
+                </Button>
+                <Button x:Name="close" Width="20" Height="20" Click="close_Click" Cursor="Hand" BorderBrush="{x:Null}" Background="#334746" FontFamily="Myriad Pro" FontSize="35" FontWeight="SemiBold">
+                    <materialDesign:PackIcon Kind="WindowClose" Height="20" Width="20"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <ListBox HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged">
+            <ListBoxItem>
+                <Border Width="80" Height="80" BorderBrush="#bbc8ba" BorderThickness="2" CornerRadius="60">
+                    <Ellipse>
+                        <Ellipse.Fill>
+                            <ImageBrush Stretch="UniformToFill"  ImageSource="Resourses\admin.png"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+            </ListBoxItem>
+            <ListBoxItem VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="Users" Margin="0,10,0,0" Cursor="Hand">
+                <TextBlock Foreground="#2b331f" FontSize="12">Пользователи</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="Numbers" Margin="0,10,0,0" Cursor="Hand">
+                <TextBlock Foreground="#2b331f" FontSize="12">Номера</TextBlock>
+            </ListBoxItem>
+
+        </ListBox>
+        <Grid x:Name="Content" Grid.Row="1" Grid.Column="1" Background="#f2f1ef "></Grid>
+    </Grid>
+</Window>
